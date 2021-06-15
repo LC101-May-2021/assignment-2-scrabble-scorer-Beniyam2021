@@ -37,7 +37,7 @@ function oldScrabbleScorer(word) {
  
 	  for (const pointValue in oldPointStructure) {
       if (oldPointStructure[pointValue].includes(word[i])) {
-			  letterPoints += `Points for '${word[i]}': ${pointValue}\n`
+			  letterPoints += `Points for '${word[i]}': ${pointValue}`
 		 }
  
 	  }
@@ -56,7 +56,7 @@ let simpleScore = function (word){
   for (let i = 0; i < word.length; i++){
     for (const pointValue in oldPointStructure){
       if (oldPointStructure[pointValue].includes(word[i])){
-        letterPoints += `Points for "${word[i]}": "${pointValue}"\n`
+        letterPoints += `Points for "${word[i]}": "${pointValue}"`
       }
     }
   }
@@ -70,8 +70,8 @@ let vowelBonusScore = function (word){
   word = word.toUpperCase();
   let letterPoints = "";
   for (let i = 0; i < word.length; i++){
-    for (const pointValue in oldPointStructure){
-      if (oldPointStructure[pointValue].includes(word[i])){
+    for (const pointValue in vowelBonusStructure){
+      if (vowelBonusStructure[pointValue].includes(word[i])){
         letterPoints += Number(pointValue);
       }
     }
@@ -83,13 +83,13 @@ let scrabbleScore;
 
 const scoringAlgorithms = [
   {name: "Simple Score",
-  description: "Each letter is worth 1 point.",
+  description: "Each letter is worth 1 point. ",
   scoreFunction: simpleScore},
   {name: "Bonus Vowels",
-  description: "Vowels are 3 pts, consonants are 1 pt.",
+  description: "Vowels are 3 pts, consonants are 1 pt. ",
   scoreFunction: vowelBonusScore},
   {name: "Scrabble",
-  description: "The traditional scoring algorithm.",
+  description: "The traditional scoring algorithm. ",
   scoreFunction: oldScrabbleScorer}];
 
 function scorerPrompt() {
