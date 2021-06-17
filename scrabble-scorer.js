@@ -12,11 +12,6 @@ const oldPointStructure = {
   10: ['Q', 'Z']
 };
 
-const vowelBonusStructure = {
-  3: ['A', 'E', 'I', 'O', 'U'],
-  1: ['B','C','D','F','G','H','J','K','L','M','N','P','Q','R','S','T','V','W','X','Y','Z']
-};
-
 function runProgram() {
    let word = initialPrompt();
    let oldScrabblePoints = oldScrabbleScorer(word);
@@ -51,16 +46,8 @@ function initialPrompt() {
 };
 
 let simpleScore = function (word){
-  word = word.toUpperCase();
-  let letterPoints = "";
-  for (let i = 0; i < word.length; i++){
-    for (const pointValue in oldPointStructure){
-      if (oldPointStructure[pointValue].includes(word[i])){
-        letterPoints += `Points for "${word[i]}": "${pointValue}"\n`
-      }
-    }
-  }
-  return letterPoints;
+  
+  return word.length;
 }
  /*let simpleScore = input ("point per letter) index +1 to count letters?");
   return word.length*/
@@ -68,13 +55,15 @@ let simpleScore = function (word){
 
 let vowelBonusScore = function (word){
   word = word.toUpperCase();
-  let letterPoints = "";
+  let letterPoints = 0;
+  let vowels = "aeiou";
   for (let i = 0; i < word.length; i++){
-    for (const pointValue in vowelBonusStructure){
-      if (vowelBonusStructure[pointValue].includes(word[i])){
+      if (vowels.includes(word[i])){
         //letterPoints += Number(pointValue);
-        letterPoints += `Points for "${word[i]}": "${pointValue}"\n`
-      }
+        letterPoints += 3;
+        
+      }else {
+        letterPoints ++;
     }
   }
   return letterPoints;
