@@ -83,14 +83,13 @@ const scoringAlgorithms = [
   scoreFunction: oldScrabbleScorer}];
 
 function scorerPrompt() {
-  let scoreChoice = input.question("Which scoring algorithm?  Enter 0, 1, or 2: ");
-  //for (let i = 0; i < scoringAlgorithms.length; i++){
-    //console.log(scoringAlgorithms[i].description);
-    //scoreChoice = input.question("Enter 0, 1, or 2: ");
+  console.log("Which scoring algorithm do you need? ");
+  for (let i = 0; i < scoringAlgorithms.length; i++){
+    let option = scoringAlgorithms[i];
+    console.log(i + "-" + option[name] + option[description])
     return scoringAlgorithms[scoreChoice];
   }
-   //scoreChoice = input.question("Enter 0, 1, or 2: ");
-  //return scoringAlgorithms[scoreChoice];
+  let questionOption = input.question("Enter 0, 1, or 2: ");
 
 
 function transform() {};
