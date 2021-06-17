@@ -46,8 +46,8 @@ function oldScrabbleScorer(word) {
  }
 
 function initialPrompt() {
-   let greeting = input.question(`Let's play some scrabble! Enter a word to score:`);
-   return greeting;
+   let yourWord = input.question(`Let's play some scrabble! Enter a word to score:`);
+   return yourWord;
 };
 
 let simpleScore = function (word){
