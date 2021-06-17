@@ -72,7 +72,8 @@ let vowelBonusScore = function (word){
   for (let i = 0; i < word.length; i++){
     for (const pointValue in vowelBonusStructure){
       if (vowelBonusStructure[pointValue].includes(word[i])){
-        letterPoints += Number(pointValue);
+        //letterPoints += Number(pointValue);
+        letterPoints += `Points for "${word[i]}": "${pointValue}"\n`
       }
     }
   }
