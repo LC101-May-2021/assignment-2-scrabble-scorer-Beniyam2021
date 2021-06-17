@@ -21,8 +21,9 @@ function runProgram() {
    let bonusScorePoints = vowelBonusScore(word);
    console.log(bonusScorePoints);
    let scorerObject = scorerPrompt();
-   let score = scorerObject.scoreFunction(word);
-   console.log(`The score of ${word} is ${score}`); 
+   //let score = scorerObject.scoreFunction(word);
+  // console.log(`The score of ${word} is ${score}`); 
+   scorerPrompt();
 }
 
 function oldScrabbleScorer(word) {
@@ -86,13 +87,24 @@ function scorerPrompt() {
   console.log("Which scoring algorithm do you need? ");
   for (let i = 0; i < scoringAlgorithms.length; i++){
     let option = scoringAlgorithms[i];
-    console.log(i + "-" + option[name] + option[description])
-    return scoringAlgorithms[scoreChoice];
+    console.log(i + "-" + option.name + option.description)
+    
   }
   let questionOption = input.question("Enter 0, 1, or 2: ");
+  return scoringAlgorithms[questionOption];
+}
 
-
-function transform() {};
+function transform(oldStructure) {
+  const swapValue = {};
+  for(let score in oldStructure){
+    let value = oldStructure[score];
+    for(let i = 0; i < value.length; i++){
+      swapValue[value[i]] = score;
+    }
+  }
+  return swapValue;
+};
+console.log(transform(oldPointStructure))
 
 let newPointStructure;
 
