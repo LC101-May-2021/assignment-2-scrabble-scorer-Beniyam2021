@@ -1,4 +1,4 @@
-// inspired by https://exercism.io/tracks/javascript/exercises/etl/solutions/91f99a3cca9548cebe5975d7ebca6a85
+ //inspired by https://exercism.io/tracks/javascript/exercises/etl/solutions/91f99a3cca9548cebe5975d7ebca6a85
 
 const input = require("readline-sync");
 
@@ -12,16 +12,28 @@ const oldPointStructure = {
   10: ['Q', 'Z']
 };
 
+function runProgram() {
+   let word = initialPrompt();
+   let oldScrabblePoints = oldScrabbleScorer(word);
+   console.log(oldScrabblePoints);
+   let simplePoints = simpleScore(word);
+   console.log(simplePoints);
+   let bonusScorePoints = vowelBonusScore(word);
+   console.log(bonusScorePoints);
+   let scorerObject = scorerPrompt();
+   let score = scorerObject.scoreFunction(word);
+   console.log(`The score of ${word} is ${score}`); 
+   scorerPrompt();
+}
+
 function oldScrabbleScorer(word) {
 	word = word.toUpperCase();
 	let letterPoints = "";
- 
 	for (let i = 0; i < word.length; i++) {
  
 	  for (const pointValue in oldPointStructure) {
- 
-		 if (oldPointStructure[pointValue].includes(word[i])) {
-			letterPoints += `Points for '${word[i]}': ${pointValue}\n`
+      if (oldPointStructure[pointValue].includes(word[i])) {
+			  letterPoints += `Points for '${word[i]}': ${pointValue}\n`
 		 }
  
 	  }
@@ -29,31 +41,84 @@ function oldScrabbleScorer(word) {
 	return letterPoints;
  }
 
-// your job is to finish writing these functions and variables that we've named //
-// don't change the names or your program won't work as expected. //
-
-function initialPrompt() {
-   console.log("Let's play some scrabble! Enter a word:");
+function initialPrompt(){
+   let yourWord = input.question(`Let's play some scrabble! Enter a word to score:`);
+   return yourWord;
 };
 
-let simpleScore;
-
-let vowelBonusScore;
-
-let scrabbleScore;
-
-const scoringAlgorithms = [];
-
-function scorerPrompt() {}
-
-function transform() {};
-
-let newPointStructure;
-
-function runProgram() {
-   initialPrompt();
-   
+let simpleScore = function (word){
+  
+  return word.length;
 }
+ /*let simpleScore = input ("point per letter) index +1 to count letters?");
+  return word.length*/
+
+
+let vowelBonusScore = function (word){
+  word = word.toUpperCase();
+  let letterPoints = 0;
+  let vowels = ['A','E','I','O','U'];
+  for (let i = 0; i < word.length; i++){
+      if (vowels.includes(word[i])){
+        //letterPoints += Number(pointValue);
+        letterPoints += 3;
+        
+      }else {
+        letterPoints ++;
+    }
+  }
+  return letterPoints;
+};
+
+let scrabbleScore = function(word){
+  word = word.toUpperCase();
+  let letterPoints = 0
+  for (let i = 0; i <word.length; i++){
+    letterPoints += newPointStructure[word[i]];
+  }
+  return letterPoints;
+};
+
+const scoringAlgorithms = [
+  {name: "Simple Score",
+  description: "Each letter is worth 1 point. ",
+  scoreFunction: simpleScore},
+  {name: "Bonus Vowels",
+  description: "Vowels are 3 pts, consonants are 1 pt. ",
+  scoreFunction: vowelBonusScore},
+  {name: "Scrabble",
+  description: "The traditional scoring algorithm. ",
+  scoreFunction: oldScrabbleScorer}];
+
+function scorerPrompt(){
+  console.log("Which scoring algorithm do you need?\n ");
+  for (let i = 0; i < scoringAlgorithms.length[i]; i++){
+    let scoreOption = scoringAlgorithms[i];
+    console.log(i + "-" + scoreOption[name] + scoreOption[description]); 
+  }
+  let choiceMade = Number(input.question("Enter 0, 1, or 2: "));
+  return scoringAlgorithms[choiceMade];
+}
+
+function transform(oldPointStructure){
+  const swapValue = {};
+  for(let score in oldPointStructure){
+    let value = oldPointStructure[score];
+    for(let i = 0; i < value.length; i++){
+      swapValue[value[i]] = Number(score);
+    }
+  }
+  return swapValue;
+};
+//console.log(transform(oldPointStructure))
+
+let newPointStructure = transform(oldPointStructure)
+
+//RUN PROGRAM (CALL FUNCTION MOVED TO LINE 20 )
+//function runProgram() {
+   //initialPrompt();
+   
+
 
 // Don't write any code below this line //
 // And don't change these or your program will not run as expected //
