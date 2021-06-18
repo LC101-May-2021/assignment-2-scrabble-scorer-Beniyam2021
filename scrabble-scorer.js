@@ -91,7 +91,7 @@ const scoringAlgorithms = [
   scoreFunction: oldScrabbleScorer}];
 
 function scorerPrompt(){
-  console.log("Which scoring algorithm do you need? ");
+  console.log("Which scoring algorithm do you need?\n ");
   for (let i = 0; i < scoringAlgorithms.length[i]; i++){
     let scoreOption = scoringAlgorithms[i];
     console.log(i + "-" + scoreOption[name] + scoreOption[description]); 
