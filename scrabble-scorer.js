@@ -21,8 +21,8 @@ function runProgram() {
    let bonusScorePoints = vowelBonusScore(word);
    console.log(bonusScorePoints);
    let scorerObject = scorerPrompt();
-   //let score = scorerObject.scoreFunction(word);
-  // console.log(`The score of ${word} is ${score}`); 
+   let score = scorerObject.scoreFunction(word);
+   console.log(`The score of ${word} is ${score}`); 
    scorerPrompt();
 }
 
@@ -41,7 +41,7 @@ function oldScrabbleScorer(word) {
 	return letterPoints;
  }
 
-function initialPrompt() {
+function initialPrompt(){
    let yourWord = input.question(`Let's play some scrabble! Enter a word to score:`);
    return yourWord;
 };
@@ -57,7 +57,7 @@ let simpleScore = function (word){
 let vowelBonusScore = function (word){
   word = word.toUpperCase();
   let letterPoints = 0;
-  let vowels = "aeiou";
+  let vowels = ['A','E','I','O','U'];
   for (let i = 0; i < word.length; i++){
       if (vowels.includes(word[i])){
         //letterPoints += Number(pointValue);
@@ -68,9 +68,16 @@ let vowelBonusScore = function (word){
     }
   }
   return letterPoints;
-}
+};
 
-let scrabbleScore;
+let scrabbleScore = function(word){
+  word = word.toUpperCase();
+  let letterPoints = 0
+  for (let i = 0; i <word.length; i++){
+    letterPoints += newPointStructure[word[i]];
+  }
+  return letterPoints;
+};
 
 const scoringAlgorithms = [
   {name: "Simple Score",
@@ -83,30 +90,29 @@ const scoringAlgorithms = [
   description: "The traditional scoring algorithm. ",
   scoreFunction: oldScrabbleScorer}];
 
-function scorerPrompt() {
+function scorerPrompt(){
   console.log("Which scoring algorithm do you need? ");
-  for (let i = 0; i < scoringAlgorithms.length; i++){
-    let option = scoringAlgorithms[i];
-    console.log(i + "-" + option.name + option.description)
-    
+  for (let i = 0; i < scoringAlgorithms.length[i]; i++){
+    let scoreOption = scoringAlgorithms[i];
+    console.log(i + "-" + scoreOption[name] + scoreOption[description]); 
   }
-  let questionOption = input.question("Enter 0, 1, or 2: ");
-  return scoringAlgorithms[questionOption];
+  let choiceMade = Number(input.question("Enter 0, 1, or 2: "));
+  return scoringAlgorithms[choiceMade];
 }
 
-function transform(oldStructure) {
+function transform(oldPointStructure){
   const swapValue = {};
-  for(let score in oldStructure){
-    let value = oldStructure[score];
+  for(let score in oldPointStructure){
+    let value = oldPointStructure[score];
     for(let i = 0; i < value.length; i++){
-      swapValue[value[i]] = score;
+      swapValue[value[i]] = Number(score);
     }
   }
   return swapValue;
 };
-console.log(transform(oldPointStructure))
+//console.log(transform(oldPointStructure))
 
-let newPointStructure;
+let newPointStructure = transform(oldPointStructure)
 
 //RUN PROGRAM (CALL FUNCTION MOVED TO LINE 20 )
 //function runProgram() {
